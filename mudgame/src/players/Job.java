@@ -24,7 +24,8 @@ public class Job
         this.exp += exp;
         this.armor += armor;
         this.attack += attack;
-    }
+    };
+
     public int attackMonster(){
         return attack;
     };
@@ -44,6 +45,7 @@ public class Job
             levUp();
         }
     };
+
     public void levUp(){
         lev ++;
         maxHp += 50;
@@ -53,7 +55,6 @@ public class Job
         attack += 50;
         hp = maxHp;
         mp = maxMp;
-        exp = 0;
     };
 
     public void showInfo(){
@@ -130,5 +131,29 @@ public class Job
 
     public void setUserJob(String userJob) {
         this.userJob = userJob;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public void setMaxHp(int maxHp) {
+        this.maxHp = maxHp;
+    }
+
+    public int getMaxMp() {
+        return maxMp;
+    }
+
+    public void setMaxMp(int maxMp) {
+        this.maxMp = maxMp;
+    }
+
+    public int getMaxExp() {
+        return maxExp;
+    }
+
+    public void setMaxExp(int maxExp) {
+        this.maxExp = maxExp;
     }
 }

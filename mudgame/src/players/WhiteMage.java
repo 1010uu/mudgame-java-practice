@@ -35,7 +35,7 @@ public class WhiteMage extends Job {
             return sum;
         }
         if("R".equals(selectMenu.toUpperCase())){
-            System.out.println(("[Ultimate]최후의 섬광을 사용합니다."));
+            System.out.println(("[Ultimate]최후의 섬광을 사용합니다. =͟͟͞͞➳❥="));
             sum = (int)( getAttack() * 0.5 ) + ( randNum * getLev()); //궁극기 사용 데미지
             System.out.println(sys + getName() + "이(가) 궁극기로 " + sum + "의 데미지를 주었습니다. ");
             return sum;
@@ -49,9 +49,16 @@ public class WhiteMage extends Job {
     }
 
     public void healPlayer(int heal){
-        //최대체력조건
         int life = getHp() + heal;
-        setHp(life);
+        int maxHp = getMaxHp();
+        //최대체력조건
+        if( life >= maxHp ){
+            System.out.println(sys + getName() + "의 생명력이 가득 찼습니다.");
+            setHp(maxHp);
+        }
+        if( life < maxHp ){
+            setHp(life);
+        }
         //마나가 없을 때
         int useMp = getMp() - heal;
         setMp(useMp);

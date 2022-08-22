@@ -14,6 +14,8 @@ public class Server {
     final String GO_MENU = "메뉴로 돌아갑니다.";
     final String MONSTER_KILLED_MESSAGE = "을(를) 처치했습니다.";
     final String GO_BUILD_MONSTER = "던전 입구로 돌아갑니다.";
+    final String GET_EXP = "만큼의 경험치를 얻었습니다.";
+    final String NOW_LEV = "의 현재 레벨 : ";
 
     public void gameInfo(){
         System.out.println(SYS + "이 게임은 텍스트를 이용해 진행됩니다.");
@@ -60,11 +62,10 @@ public class Server {
         }
     }
     public void startGame() {
-        //캐릭터 생성 시 기본 레벨과 경험치
-        int lev = 1;
-        int exp = 20;
+        //캐릭터 생성 시 기본으로 레벨과 경험치 초기화
+        int init_lev = 1;
+        int init_exp = 20;
         final String MESSAGE = "을(를) 선택했습니다.";
-
         System.out.println("====================GameStart===================");
         gameInfo();
         System.out.println(SYS + "캐릭터 이름을 설정하세요");
@@ -82,33 +83,35 @@ public class Server {
         //직업 선택 기본값 초기화
         if (selectNum == 1) {
             jobName = "나이트";
-            job = new Knight(userName, 500, 200, lev, exp, 50, 30);
+            job = new Knight(userName, 500, 200, init_lev, init_exp, 50, 30);
             job.setUserJob(jobName);
             System.out.println(SYS + jobName + MESSAGE);
             job.showInfo();
         }
         if (selectNum == 2) {
             jobName = "몽크";
-            job = new Monk(userName, 400, 100, lev, exp, 40, 40);
+            job = new Monk(userName, 400, 100, init_lev, init_exp, 40, 40);
             job.setUserJob(jobName);
             System.out.println(SYS + jobName + MESSAGE);
             job.showInfo();
         }
         if (selectNum == 3) {
             jobName = "흑마도사";
-            job = new BlackMage(userName, 200, 400, lev, exp, 20, 60);
+            job = new BlackMage(userName, 200, 400, init_lev, init_exp, 20, 60);
             job.setUserJob(jobName);
             System.out.println(SYS + jobName + MESSAGE);
             job.showInfo();
         }
         if (selectNum == 4) {
             jobName = "백마도사";
-            job = new WhiteMage(userName, 350, 350, lev, exp, 10, 15);
+            job = new WhiteMage(userName, 350, 350, init_lev, init_exp, 10, 15);
             job.setUserJob(jobName);
             System.out.println(SYS + jobName + MESSAGE);
             job.showInfo();
         }
-        System.out.println(SYS + "캐릭터를 생성하였습니다.");
+        System.out.println(SYS + "캐릭터를 생성했습니다.");
+        System.out.println(SYS + init_exp + GET_EXP);
+        System.out.println(SYS + userName + NOW_LEV + init_lev);
     }
     public void moveMap(){
         String selectedMap = null;
