@@ -35,6 +35,36 @@ public class Job
 
     };
 
+    public int useMp(String skill){ //스킬에 따른 마나 사용량 반환
+        int usedMp = 0; //스킬로 사용한 마나
+        int maxMp = getMaxMp();
+        int nowMp = getMp();
+        int leftMp = 0;  // 마나 사용 후 남은 마나
+        if(skill.equals("skill")){
+            usedMp = (int)(maxMp * 0.3);
+            if( nowMp < usedMp ){ //현재 마나가 사용하려는 마나보다 없다면
+                return 0;
+            }
+            if((nowMp > usedMp) && !(nowMp -usedMp <= 0)){
+                leftMp = getMp() - usedMp;
+                setMp(leftMp);
+                return usedMp;
+            }
+        }
+        if(skill.equals("ulti")){
+            usedMp = (int)(maxMp * 0.5);
+            if( nowMp < usedMp ){ //현재 마나가 사용하려는 마나보다 없다면
+                return 0;
+            }
+            if((nowMp > usedMp) && !(nowMp - usedMp <= 0)){
+                leftMp = getMp() - usedMp;
+                setMp(leftMp);
+                return usedMp;
+            }
+        }
+        return usedMp;
+    }
+
     public void ExpUp(int tempExp){ //경험치 획득 메서드
         if(exp + tempExp < maxExp){ //최대 경험치보다 적을 때
            exp += tempExp;
@@ -46,7 +76,7 @@ public class Job
         }
     };
 
-    public void levUp(){
+    public void levUp(){ //레벨업 메서드
         lev ++;
         maxHp += 50;
         maxMp += 50;
@@ -57,7 +87,7 @@ public class Job
         mp = maxMp;
     };
 
-    public void showInfo(){
+    public void showInfo(){ //캐릭터 정보를 보여주는 메서드
         System.out.println("==================[내 캐릭터 정보]==================");
         System.out.println("         1.이름 : " + name + "  |  2.직업 : " + userJob);
         System.out.println("         3.체력 : " + hp + "  |  4.마나 : " + mp);

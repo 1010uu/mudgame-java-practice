@@ -19,4 +19,10 @@ public class Sirens extends Monster {
     public void attackedByPlayer(int damage) {
         super.attackedByPlayer(damage);
     }
+
+    @Override
+    public void introMonster() {
+        System.out.println(SYS + "요정 Sirens이(가) 나타났습니다!!!");
+        System.out.println(SYS + "바다의 요정 세이렌은 상체는 사람이고 하체는 물고기.. 기괴하다!!");
+    }
 }

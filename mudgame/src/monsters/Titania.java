@@ -19,4 +19,10 @@ public class Titania extends Monster {
     public void attackedByPlayer(int damage) {
         super.attackedByPlayer(damage);
     }
+
+    @Override
+    public void introMonster() {
+        System.out.println(SYS + "요정의 여왕 Titania이(가) 나타났습니다!!!");
+        System.out.println(SYS + "오베론은 어디있을까?");
+    }
 }

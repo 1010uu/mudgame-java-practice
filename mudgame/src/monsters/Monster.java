@@ -18,12 +18,19 @@ public class Monster {
         this.attack += attack;
     }
 
+    //생성자
+    public Monster(String name){
+        this.monsterName = name;
+    }
+
     public int attackPlayer(){
         return attack;
     };
     public void attackedByPlayer(int damage){
         this.hp = hp + armor - damage;
     };
+
+    public void introMonster(){}; //몬스터 한마디 메서드
 
     public void showInfo(){
         System.out.println("===================[몬스터 정보]===================");

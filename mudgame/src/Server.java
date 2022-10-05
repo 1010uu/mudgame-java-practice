@@ -1,6 +1,7 @@
 import monsters.*;
 import players.*;
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,6 +12,8 @@ public class Server {
     Scanner scanner = new Scanner(System.in);
     final String SYS = "[System]";
     final String IN = "[Input]";
+    final String ERR = "[Error]";
+    final String MESSAGE = "을(를) 선택했습니다.";
     final String GO_MENU = "메뉴로 돌아갑니다.";
     final String MONSTER_KILLED_MESSAGE = "을(를) 처치했습니다.";
     final String GO_BUILD_MONSTER = "던전 입구로 돌아갑니다.";
@@ -62,10 +65,6 @@ public class Server {
         }
     }
     public void startGame() {
-        //캐릭터 생성 시 기본으로 레벨과 경험치 초기화
-        int init_lev = 1;
-        int init_exp = 20;
-        final String MESSAGE = "을(를) 선택했습니다.";
         System.out.println("====================GameStart===================");
         gameInfo();
         System.out.println(SYS + "캐릭터 이름을 설정하세요");
@@ -73,45 +72,52 @@ public class Server {
         String userName = scanner.next();
         System.out.println(SYS + "캐릭터 이름을 설정했습니다. ");
 
+        selectJob(userName);
+    }
+    public void selectJob(String name){
+        //기본 레벨과 경험치
+        int init_lev = 1;
+        int init_exp = 20;
         System.out.println(SYS + "캐릭터 직업을 결정하세요");
         System.out.println("==================================================");
         System.out.println("[1]나이트 [2]몽크 [3]흑마도사 [4]백마도사");
         System.out.println("=================================================");
         System.out.print(IN + "번호 입력 : ");
+
         int selectNum = scanner.nextInt();
 
         //직업 선택 기본값 초기화
         if (selectNum == 1) {
             jobName = "나이트";
-            job = new Knight(userName, 500, 200, init_lev, init_exp, 50, 30);
+            job = new Knight(name, 250, 150, init_lev, init_exp, 50, 30);
             job.setUserJob(jobName);
             System.out.println(SYS + jobName + MESSAGE);
             job.showInfo();
         }
         if (selectNum == 2) {
             jobName = "몽크";
-            job = new Monk(userName, 400, 100, init_lev, init_exp, 40, 40);
+            job = new Monk(name, 220, 80, init_lev, init_exp, 30, 40);
             job.setUserJob(jobName);
             System.out.println(SYS + jobName + MESSAGE);
             job.showInfo();
         }
         if (selectNum == 3) {
             jobName = "흑마도사";
-            job = new BlackMage(userName, 200, 400, init_lev, init_exp, 20, 60);
+            job = new BlackMage(name, 180, 300, init_lev, init_exp, 20, 60);
             job.setUserJob(jobName);
             System.out.println(SYS + jobName + MESSAGE);
             job.showInfo();
         }
         if (selectNum == 4) {
             jobName = "백마도사";
-            job = new WhiteMage(userName, 350, 350, init_lev, init_exp, 10, 15);
+            job = new WhiteMage(name, 140, 200, init_lev, init_exp, 10, 15);
             job.setUserJob(jobName);
             System.out.println(SYS + jobName + MESSAGE);
             job.showInfo();
         }
         System.out.println(SYS + "캐릭터를 생성했습니다.");
         System.out.println(SYS + init_exp + GET_EXP);
-        System.out.println(SYS + userName + NOW_LEV + init_lev);
+        System.out.println(SYS + name + NOW_LEV + init_lev);
     }
     public void moveMap(){
         String selectedMap = null;
@@ -148,7 +154,7 @@ public class Server {
             System.out.println(SYS + GO_MENU);
             showMenu();
         }
-        System.out.println(SYS + monster.getMonsterName() + "이(가) 나타났습니다.");
+        monster.introMonster();
         monster.showInfo();
 
         playerAtkMonster(); //플레이어가 몬스터를 공격하는 메서드 호출
