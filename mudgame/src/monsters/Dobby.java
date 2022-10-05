@@ -19,4 +19,10 @@ public class Dobby extends Monster {
     public void attackedByPlayer(int damage) {
         super.attackedByPlayer(damage);
     }
+
+    @Override
+    public void introMonster() {
+        System.out.println(SYS + "요정 Dobby이(가) 나타났습니다!!!");
+        System.out.println(SYS + "도비가 외칩니다. Dobby is Free!!!");
+    }
 }
