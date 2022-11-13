@@ -34,6 +34,10 @@ public class Server {
         System.out.println("[Q]내 캐릭터 정보 [W]던전으로 이동 [C]직업 전환 [X]게임 종료");
         System.out.println("==================================================");
         System.out.print(IN+"메뉴 입력 : ");
+        try {
+        }catch (InputMismatchException e){
+            System.out.println(SYS);
+        }
         String selectMenu = scanner.next();
 
         if("Q".equals(selectMenu.toUpperCase())){
@@ -70,9 +74,15 @@ public class Server {
         System.out.println(SYS + "캐릭터 이름을 설정하세요");
         System.out.print(IN + "이름 입력 : ");
         String userName = scanner.next();
-        System.out.println(SYS + "캐릭터 이름을 설정했습니다. ");
-
-        selectJob(userName);
+        boolean chkName = checkName(userName);
+        if(!chkName){
+            scanner.nextLine();
+            startGame();
+        }
+        else {
+            System.out.println(SYS + "캐릭터 이름을 설정했습니다. ");
+            selectJob(userName);
+        }
     }
     public void selectJob(String name){
         //기본 레벨과 경험치
@@ -199,5 +209,17 @@ public class Server {
             System.out.println(SYS+GO_BUILD_MONSTER);
             buildMonster();
         }
+    }
+
+    public boolean checkName(String name) {
+        boolean chk= true;
+        //닉네임에 문장부호가 있는지 확인
+        for (int i = 0; i < name.length(); i++) {
+            if (String.valueOf(name.charAt(i)).matches("[^a-zA-Z0-9-가-힣\\s]")) { //특수문자 인 경우
+                System.out.println(name.charAt(i) + " : " + "특수문자는 이름으로 사용할 수 없습니다.");
+                chk = false;
+            }
+        }
+        return chk;
     }
 }
