@@ -49,7 +49,7 @@ public class Server {
             buildMonster();
         }
         if("C".equals(selectMenu.toUpperCase())){
-
+            changeJob();
         }
         if("X".equals(selectMenu.toUpperCase())){
             endGame();
@@ -94,40 +94,48 @@ public class Server {
         System.out.println("=================================================");
         System.out.print(IN + "번호 입력 : ");
 
-        int selectNum = scanner.nextInt();
+        try{
+            int selectNum = scanner.nextInt();
 
-        //직업 선택 기본값 초기화
-        if (selectNum == 1) {
-            jobName = "나이트";
-            job = new Knight(name, 250, 150, init_lev, init_exp, 50, 30);
-            job.setUserJob(jobName);
-            System.out.println(SYS + jobName + MESSAGE);
-            job.showInfo();
+            //직업 선택 기본값 초기화
+            if (selectNum == 1) {
+                jobName = "나이트";
+                job = new Knight(name, 250, 150, init_lev, init_exp, 50, 30);
+                job.setUserJob(jobName);
+                System.out.println(SYS + jobName + MESSAGE);
+                job.showInfo();
+            }
+            if (selectNum == 2) {
+                jobName = "몽크";
+                job = new Monk(name, 220, 80, init_lev, init_exp, 30, 40);
+                job.setUserJob(jobName);
+                System.out.println(SYS + jobName + MESSAGE);
+                job.showInfo();
+            }
+            if (selectNum == 3) {
+                jobName = "흑마도사";
+                job = new BlackMage(name, 180, 300, init_lev, init_exp, 20, 60);
+                job.setUserJob(jobName);
+                System.out.println(SYS + jobName + MESSAGE);
+                job.showInfo();
+            }
+            if (selectNum == 4) {
+                jobName = "백마도사";
+                job = new WhiteMage(name, 140, 200, init_lev, init_exp, 10, 15);
+                job.setUserJob(jobName);
+                System.out.println(SYS + jobName + MESSAGE);
+                job.showInfo();
+            }
+            System.out.println(SYS + "캐릭터를 생성했습니다.");
+            System.out.println(SYS + init_exp + GET_EXP);
+            System.out.println(SYS + name + NOW_LEV + init_lev);
+        } catch (InputMismatchException e){
+            System.out.println(ERR + "메뉴를 보고 알맞은 숫자를 입력해주세요.");
+            scanner.nextLine();
+            selectJob(name);
         }
-        if (selectNum == 2) {
-            jobName = "몽크";
-            job = new Monk(name, 220, 80, init_lev, init_exp, 30, 40);
-            job.setUserJob(jobName);
-            System.out.println(SYS + jobName + MESSAGE);
-            job.showInfo();
-        }
-        if (selectNum == 3) {
-            jobName = "흑마도사";
-            job = new BlackMage(name, 180, 300, init_lev, init_exp, 20, 60);
-            job.setUserJob(jobName);
-            System.out.println(SYS + jobName + MESSAGE);
-            job.showInfo();
-        }
-        if (selectNum == 4) {
-            jobName = "백마도사";
-            job = new WhiteMage(name, 140, 200, init_lev, init_exp, 10, 15);
-            job.setUserJob(jobName);
-            System.out.println(SYS + jobName + MESSAGE);
-            job.showInfo();
-        }
-        System.out.println(SYS + "캐릭터를 생성했습니다.");
-        System.out.println(SYS + init_exp + GET_EXP);
-        System.out.println(SYS + name + NOW_LEV + init_lev);
+
+
     }
     public void moveMap(){
         String selectedMap = null;
@@ -216,10 +224,15 @@ public class Server {
         //닉네임에 문장부호가 있는지 확인
         for (int i = 0; i < name.length(); i++) {
             if (String.valueOf(name.charAt(i)).matches("[^a-zA-Z0-9-가-힣\\s]")) { //특수문자 인 경우
-                System.out.println(name.charAt(i) + " : " + "특수문자는 이름으로 사용할 수 없습니다.");
+                System.out.println(ERR + "<" + name.charAt(i) + "> : " + "특수문자는 이름으로 사용할 수 없습니다.");
                 chk = false;
             }
         }
         return chk;
+    }
+
+    public void changeJob(){
+        //직업전환 체인지 메서드
+
     }
 }
